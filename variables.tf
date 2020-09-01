@@ -21,17 +21,26 @@ variable "subnet_name" {
 }
 
 variable "address_prefix" {
-  default = "10.0.1.0/24"
+  default = ["10.0.1.0/24"]
+}
+
+variable "number" {
+  type    = number
+  default = 2
 }
 # Define number of virutal machines to be created
 variable "numbercount" {
   type    = number
-  default = 1
+  default = 2
 }
 
 variable "external_ip" {
   type    = list(string)
   default = ["83.30.194.6"]
+}
+
+variable "jenkins_vm_name" {
+  default = "jenkins_host"
 }
 
 variable "environment" {

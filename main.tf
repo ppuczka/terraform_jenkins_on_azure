@@ -10,7 +10,11 @@ terraform {
 }
 provider "azurerm" {
   version = "~>2.0"
-  features {}
+  features {
+    virtual_machine {
+      delete_os_disk_on_deletion = false
+    }
+  }
 }
 
 resource "azurerm_resource_group" "jenkins_rg" {

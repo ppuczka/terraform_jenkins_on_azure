@@ -6,15 +6,15 @@ resource "azurerm_virtual_network" "vnet" {
 
 }
 
-resource "azurerm_subnet" "vmsubnet"  {
-  name                  = var.subnet_name
-  resource_group_name   = var.rg_name
-  virtual_network_name  = var.vnet_name
-  address_prefixes      = var.address_prefix
+resource "azurerm_subnet" "vmsubnet" {
+  name                 = var.subnet_name
+  resource_group_name  = var.rg_name
+  virtual_network_name = var.vnet_name
+  address_prefixes     = var.address_prefix
 }
 
 resource "azurerm_public_ip" "pip" {
-  count               = var.numbercount
+  count               = var.number
   name                = "vm-ip-${count.index}"
   resource_group_name = var.rg_name
   location            = var.location
@@ -65,16 +65,16 @@ resource "azurerm_network_security_rule" "jenkins_ssl" {
 
 #NIC with Public IP Address
 resource "azurerm_network_interface" "terranic" {
-    count                  = var.numbercount
-    name                   = "vm-nic-${count.index}"
-    location               = var.location
-    resource_group_name    = var.rg_name
-    
-    ip_configuration {
-        name                          = "external"
-        subnet_id                     = azurerm_subnet.vmsubnet.id
-        private_ip_address_allocation = "Dynamic"
-        public_ip_address_id          = element(azurerm_public_ip.pip.*.id, count.index)
+  count               = var.numbercount
+  name                = "vm-nic-${count.index}"
+  location            = var.location
+  resource_group_name = var.rg_name
+
+  ip_configuration {
+    name                          = "external"
+    subnet_id                     = azurerm_subnet.vmsubnet.id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = element(azurerm_public_ip.pip.*.id, count.index)
   }
-  
+
 }
