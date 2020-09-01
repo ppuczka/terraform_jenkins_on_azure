@@ -43,6 +43,10 @@ variable "jenkins_vm_name" {
   default = "jenkins_host"
 }
 
+variable "docker_vm_name" {
+  default = "docker_host"
+}
+
 variable "environment" {
   default = "Development"
 }
