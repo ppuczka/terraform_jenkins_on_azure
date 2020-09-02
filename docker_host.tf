@@ -7,7 +7,8 @@ resource "azurerm_linux_virtual_machine" "docker_vm" {
   admin_username                  = "ppuczka"
   disable_password_authentication = true
   #   custom_data                     = base64encode(data.template_file.docker.rendered)
-  network_interface_ids = [element(azurerm_network_interface.terranic.*.id, 1)]
+  network_interface_ids           = [azurerm_network_interface.terranic-2.id]        
+#   [element(azurerm_network_interface.terranic.*.id, 1)]
 
   os_disk {
     name                 = "docker_os_disk"

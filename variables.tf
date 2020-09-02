@@ -1,6 +1,12 @@
+# Define number of virutal machines to be created
+variable "numbercount" {
+  type    = number
+  default = 1 
+}
+
 variable "rg_name" {
   description = "resource group name"
-  default     = "DevOps_Lab"
+  default     = "Dev_Lab_1"
 }
 
 variable "location" {
@@ -24,15 +30,10 @@ variable "address_prefix" {
   default = ["10.0.1.0/24"]
 }
 
-variable "number" {
-  type    = number
-  default = 2
-}
-# Define number of virutal machines to be created
-variable "numbercount" {
-  type    = number
-  default = 2
-}
+# variable "number" {
+#   type    = number
+#   default = 1
+# }
 
 variable "external_ip" {
   type    = list(string)

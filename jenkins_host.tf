@@ -7,7 +7,7 @@ resource "azurerm_linux_virtual_machine" "jenkins_vm" {
   admin_username                  = "ppuczka"
   disable_password_authentication = true
   #   custom_data                     = base64encode(data.template_file.docker.rendered)
-  network_interface_ids = [element(azurerm_network_interface.terranic.*.id, 0)]
+  network_interface_ids = [azurerm_network_interface.terranic-1.id]
 
   os_disk {
     name                 = "jenkins_os_disk"
