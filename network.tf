@@ -90,7 +90,7 @@ resource "azurerm_network_interface" "terranic-1" {
 
 }
 #NIC with Public IP Address
-resource "azurerm_network_interface" "terranic-2" 
+resource "azurerm_network_interface" "terranic-2" {
   # count               = var.numbercount
   name                = "vm-nic-2"
   location            = var.location
@@ -103,8 +103,4 @@ resource "azurerm_network_interface" "terranic-2"
     public_ip_address_id          = azurerm_public_ip.ip-2.id
 
   }
-}
-
-data "azurerm_public_ips" "public_ips" {
-  resource_group_name = azurerm_resource_group.devops_rg.name
 }

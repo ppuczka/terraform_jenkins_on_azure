@@ -25,7 +25,7 @@ resource "azurerm_linux_virtual_machine" "docker_vm" {
 
   admin_ssh_key {
     username   = "ppuczka"
-    public_key = tls_private_key.jenkins_ssh_key.public_key_openssh
+    public_key = file("~/.ssh/id_rsa.pub")
   }
 
 }

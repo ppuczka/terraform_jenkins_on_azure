@@ -9,7 +9,7 @@ terraform {
   }
 }
 provider "azurerm" {
-  version = "~>2.0"
+  version = "=2.26.0"
   features {
     # virtual_machine {
     #   delete_os_disk_on_deletion = false

@@ -24,7 +24,22 @@ resource "azurerm_linux_virtual_machine" "jenkins_vm" {
 
   admin_ssh_key {
     username   = "ppuczka"
-    public_key = tls_private_key.jenkins_ssh_key.public_key_openssh
+    public_key = file("~/.ssh/id_rsa.pub")
   }
 
+  provisioner "puppet" {
+    server              = "pp-puppetmaster.westeurope.cloudapp.azure.com"
+    server_user         = "root"
+    autosign            = false
+    open_source         = false
+    extension_requests  = {
+      pp_role = "agent"
+    }
+      connection {
+        type        = "ssh"
+        user        = "ppuczka"
+        host        = azurerm_public_ip.ip-1.ip_address
+        private_key = tls_private_key.jenkins_ssh_key.private_key_pem
+      }
+  }
 }
