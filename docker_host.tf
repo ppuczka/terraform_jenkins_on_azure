@@ -27,5 +27,20 @@ resource "azurerm_linux_virtual_machine" "docker_vm" {
     username   = "ppuczka"
     public_key = file("~/.ssh/id_rsa.pub")
   }
+} 
+
+resource "azurerm_virtual_machine_extension" "docker_vm_pe_install" {
+  name ="PEAgentInstallLinux"
+  virtual_machine_id = azurerm_linux_virtual_machine.docker_vm.id
+  publisher ="Microsoft.Azure.Extensions"
+  type ="CustomScript"
+  type_handler_version ="2.0"
+
+  settings = <<SETTINGS
+    {
+        "commandToExecute": "curl -k https://pp-puppetmaster.westeurope.cloudapp.azure.com:8140/packages/current/install.bash | sudo bash -s custom_attributes:challengePassword=PASSWORD123 extension_requests:pp_role=docker_host",
+        "commandToExecute": "sudo puppet agent -t -d" 
+    }
+SETTINGS
 
 }

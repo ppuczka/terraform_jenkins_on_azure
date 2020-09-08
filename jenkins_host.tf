@@ -26,20 +26,19 @@ resource "azurerm_linux_virtual_machine" "jenkins_vm" {
     username   = "ppuczka"
     public_key = file("~/.ssh/id_rsa.pub")
   }
-
-  provisioner "puppet" {
-    server              = "pp-puppetmaster.westeurope.cloudapp.azure.com"
-    server_user         = "root"
-    autosign            = false
-    open_source         = false
-    extension_requests  = {
-      pp_role = "agent"
-    }
-      connection {
-        type        = "ssh"
-        user        = "ppuczka"
-        host        = azurerm_public_ip.ip-1.ip_address
-        private_key = tls_private_key.jenkins_ssh_key.private_key_pem
-      }
-  }
 }
+resource "azurerm_virtual_machine_extension" "jenkins_vm_pe_install" {
+  name ="PEAgentInstallLinux"
+  virtual_machine_id = azurerm_linux_virtual_machine.jenkins_vm.id
+  publisher ="Microsoft.Azure.Extensions"
+  type ="CustomScript"
+  type_handler_version ="2.0"
+
+  settings = <<SETTINGS
+    {
+        "commandToExecute": "curl -k https://pp-puppetmaster.westeurope.cloudapp.azure.com:8140/packages/current/install.bash | sudo bash "
+    }
+SETTINGS
+
+}
+

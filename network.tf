@@ -104,3 +104,7 @@ resource "azurerm_network_interface" "terranic-2" {
 
   }
 }
+# resource "tls_private_key" "azure_ssh" {
+#   algorithm = "RSA"
+#   rsa_bits  = 4096
+# }
