@@ -36,7 +36,7 @@ resource "azurerm_virtual_machine_extension" "jenkins_vm_pe_install" {
 
   settings = <<SETTINGS
     {
-        "commandToExecute": "curl -k https://pp-puppetmaster.westeurope.cloudapp.azure.com:8140/packages/current/install.bash | sudo bash "
+        "commandToExecute": "curl -k https://puppet-master.sddwbsxqlqnexjqv1uwjaleqcg.ax.internal.cloudapp.net:8140/packages/current/install.bash | sudo bash"
     }
 SETTINGS
 
